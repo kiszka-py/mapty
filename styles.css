@@ -1,9 +1,36 @@
 :root {
   --color-dark--1: rgb(48, 43, 47);
+  --color-light--2: rgb(136, 203, 150);
+}
+
+body {
+  height: 100vh;
+  display: flex;
 }
 
 #map {
-  height: 30rem;
+  flex: 1;
+  height: 100%;
+  background-color: var(--color-light--2);
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.form__row--hidden {
+  visibility: hidden;
+}
+
+.form_btn {
+  visibility: hidden;
+}
+
+.sidebar {
+  flex-basis: 20%;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
 }
 
 .leaflet-popup .leaflet-popup-content-wrapper {

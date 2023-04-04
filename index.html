@@ -23,8 +23,52 @@
     <title>Mapty</title>
   </head>
   <body>
-    <div>
+    <div class="sidebar">
       <h1>Mapty</h1>
+      <ul>
+        <form class="form hidden">
+          <div class="form__row">
+            <label for="" class="form__label">Type</label>
+            <select name="" id="" class="form__input--type form__input--type">
+              <option value="running">running</option>
+              <option value="cycling">cycling</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label for="" class="form__label">Distance</label>
+            <input
+              type="text"
+              class="form__input form__input--distance"
+              placeholder="km"
+            />
+          </div>
+          <div class="form__row">
+            <label for="" class="form__label">duration</label>
+            <input
+              type="text"
+              class="form__input form__input--duration"
+              placeholder="min"
+            />
+          </div>
+          <div class="form__row">
+            <label for="" class="form__label">cadence</label>
+            <input
+              type="text"
+              class="form__input form__input--cadence"
+              placeholder="steps/min"
+            />
+          </div>
+          <div class="form__row form__row--hidden">
+            <label for="" class="form__label">evelation</label>
+            <input
+              type="text"
+              class="form__input form__input--evelation"
+              placeholder="steps/min"
+            />
+          </div>
+          <button class="form__btn">OK</button>
+        </form>
+      </ul>
     </div>
     <div id="map"></div>
   </body>
