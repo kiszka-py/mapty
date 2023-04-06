@@ -42,13 +42,10 @@ class Cycling extends Workout {
   }
 }
 
-const run1 = new Running([50, 20], 5.2, 24, 170);
-const cycl1 = new Cycling([50, 20], 27, 95, 503);
-console.log(run1, cycl1);
-
 class App {
   #map;
   #clickedPoint;
+  #workouts = [];
 
   constructor() {
     this._getPosition();
@@ -86,7 +83,42 @@ class App {
   }
 
   _newWorkout(e) {
+    const validInputs = (...inputs) => {
+      return inputs.every((input) => Number.isFinite(input));
+    };
+    const allPositive = (...inputs) => {
+      return inputs.every((input) => input > 0);
+    };
     e.preventDefault();
+
+    // Get data from form
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+
+    let workout;
+    if (type === "running") {
+      const cadence = +inputCadence.value;
+      console.log(distance, duration, cadence);
+      if (
+        !validInputs(distance, duration, cadence) ||
+        !allPositive(distance, duration, cadence)
+      )
+        return alert("Inputs have to be positive numbers");
+      workout = new Running(this.#clickedPoint, distance, duration, cadence);
+    }
+    if (type === "cycling") {
+      const elevation = +inputElevation.value;
+      if (
+        !validInputs(distance, duration, elevation) ||
+        !allPositive(distance, duration)
+      )
+        return alert("Inputs have to be positive numbers");
+      workout = new Cycling(this.#clickedPoint, distance, duration, elevation);
+    }
+
+    this.#workouts.push(workout);
+    console.log(workout);
 
     inputDistance.value = inputDuration.value = inputCadence.value = "";
     // Add makret to the map
