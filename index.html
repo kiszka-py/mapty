@@ -25,49 +25,76 @@
   <body>
     <div class="sidebar">
       <h1>Mapty</h1>
-      <ul>
-        <form class="form hidden">
-          <div class="form__row">
-            <label for="" class="form__label">Type</label>
-            <select name="" id="" class="form__input--type form__input--type">
-              <option value="running">running</option>
-              <option value="cycling">cycling</option>
-            </select>
+      <ul class="workouts">
+        <li>
+          <form class="form hidden">
+            <div class="form__row">
+              <label for="" class="form__label">Type</label>
+              <select name="" id="" class="form__input--type form__input--type">
+                <option value="running">running</option>
+                <option value="cycling">cycling</option>
+              </select>
+            </div>
+            <div class="form__row">
+              <label for="" class="form__label">Distance</label>
+              <input
+                type="text"
+                class="form__input form__input--distance"
+                placeholder="km"
+              />
+            </div>
+            <div class="form__row">
+              <label for="" class="form__label">duration</label>
+              <input
+                type="text"
+                class="form__input form__input--duration"
+                placeholder="min"
+              />
+            </div>
+            <div class="form__row">
+              <label for="" class="form__label">cadence</label>
+              <input
+                type="text"
+                class="form__input form__input--cadence"
+                placeholder="steps/min"
+              />
+            </div>
+            <div class="form__row form__row--hidden">
+              <label for="" class="form__label">evelation</label>
+              <input
+                type="text"
+                class="form__input form__input--elevation"
+                placeholder="steps/min"
+              />
+            </div>
+            <button class="form__btn">OK</button>
+          </form>
+        </li>
+
+        <!-- ////////////////////////////////////////// -->
+        <li class="workout workout--running" data-in="1680801403877">
+          <h2 class="workout__title">Running on 6 April</h2>
+          <div class="workout__details">
+            <span class="workout__icon">🏃‍♂️</span>
+            <span class="workout__value">5</span>
+            <span class="workout__unit">km</span>
           </div>
-          <div class="form__row">
-            <label for="" class="form__label">Distance</label>
-            <input
-              type="text"
-              class="form__input form__input--distance"
-              placeholder="km"
-            />
+          <div class="workout__details">
+            <span class="workout__icon">🧘‍♂️</span>
+            <span class="workout__value">5</span>
+            <span class="workout__unit">km</span>
           </div>
-          <div class="form__row">
-            <label for="" class="form__label">duration</label>
-            <input
-              type="text"
-              class="form__input form__input--duration"
-              placeholder="min"
-            />
+          <div class="workout__details">
+            <span class="workout__icon">⚡</span>
+            <span class="workout__value">1.0</span>
+            <span class="workout__unit">min/km</span>
           </div>
-          <div class="form__row">
-            <label for="" class="form__label">cadence</label>
-            <input
-              type="text"
-              class="form__input form__input--cadence"
-              placeholder="steps/min"
-            />
+          <div class="workout__details">
+            <span class="workout__icon">🦶</span>
+            <span class="workout__value">5</span>
+            <span class="workout__unit">spm</span>
           </div>
-          <div class="form__row form__row--hidden">
-            <label for="" class="form__label">evelation</label>
-            <input
-              type="text"
-              class="form__input form__input--elevation"
-              placeholder="steps/min"
-            />
-          </div>
-          <button class="form__btn">OK</button>
-        </form>
+        </li>
       </ul>
     </div>
     <div id="map"></div>
