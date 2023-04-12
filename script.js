@@ -10,7 +10,8 @@ const containerWorkouts = document.querySelector(".workouts");
 
 class Workout {
   date = new Date();
-  id = Date.now();
+  id = `${Date.now()}`;
+  clicks = 0;
 
   constructor(coords, distance, duration) {
     this.coords = coords;
@@ -36,6 +37,10 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
+  }
+
+  click() {
+    this.clicks++;
   }
 }
 class Running extends Workout {
@@ -69,6 +74,7 @@ class Cycling extends Workout {
 
 class App {
   #map;
+  #mapZoomLevel = 13;
   #clickedPoint;
   #workouts = [];
 
@@ -79,7 +85,7 @@ class App {
 
     inputType.addEventListener("change", this._toggleElevationField);
 
-    containerWorkouts.addEventListener("click", this._moveToPopup);
+    containerWorkouts.addEventListener("click", this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -97,7 +103,7 @@ class App {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
 
-    this.#map = L.map("map").setView([latitude, longitude], 13);
+    this.#map = L.map("map").setView([latitude, longitude], this.#mapZoomLevel);
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
@@ -126,7 +132,7 @@ class App {
     let workout;
     if (type === "running") {
       const cadence = +inputCadence.value;
-      console.log(distance, duration, cadence);
+      // console.log(distance, duration, cadence);
       if (
         !validInputs(distance, duration, cadence) ||
         !allPositive(distance, duration, cadence)
@@ -146,7 +152,7 @@ class App {
 
     this.#workouts.push(workout);
     this._renderWorkout(workout);
-    console.log(workout);
+    // console.log(workout);
 
     inputDistance.value = inputDuration.value = inputCadence.value = "";
     // Add makret to the map
@@ -163,13 +169,13 @@ class App {
       )
       .setPopupContent(`${workout.description}`)
       .openPopup();
-    console.log(workout);
+    // console.log(workout);
     this._hideForm();
   }
 
   _renderWorkout(workout) {
     let html = `
-    <li class="workout workout--${workout.type}" data-in=${workout.id}>
+    <li class="workout workout--${workout.type}" data-id=${workout.id}>
           <h2 class="workout__title">${workout.description}</h2>
           <div class="workout__details">
             <span class="workout__icon">${
@@ -233,7 +239,22 @@ class App {
 
   _moveToPopup(e) {
     const workoutEl = e.target.closest(".workout");
-    console.log(workoutEl.dataset.in);
+    console.log(`workoutEl.dataset.id: ${workoutEl.dataset.id}`);
+    console.log(`this.#workouts[0].id ${this.#workouts[0].id}`);
+
+    if (!workoutEl) return;
+
+    const workout = this.#workouts.find(
+      (work) => work.id === workoutEl.dataset.id
+    );
+    // this.#workouts.forEach((work) => console.log(work));
+    // console.log(`workout ${workout}`);
+    workout.click();
+    console.log(workout.clicks);
+    this.#map.setView(workout.coords, this.#mapZoomLevel, {
+      animate: true,
+      duration: 1,
+    });
   }
 }
 
